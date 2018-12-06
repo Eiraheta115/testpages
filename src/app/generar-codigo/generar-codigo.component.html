@@ -1,0 +1,57 @@
+<!--Alerta-->
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+      <div class="input" style="padding: 2rem; text-align: center; align-content: center;">
+        <h1 class="text-center"> <strong>GENERADOR DE CODIGOS PARA EL INGRESO AL SITIO WEB DE ESTUDIANTES</strong></h1>
+        <form (submit)="generarcodigo()" [formGroup]="datosCodigo"> 
+          <div class="example-container">
+              <mat-form-field>
+                <mat-label>Cantidad de códigos a generar</mat-label>
+                <input matInput type="number" placeholder="Ingrese un numero" min= "1" max="100" formControlName="cantidad">
+                <mat-error *ngIf="datosCodigo.get('cantidad').hasError('required')">la cantidad es <strong>requerida</strong></mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Seleccione el tiempo de vigencia</mat-label>
+                <input matInput type="date" placeholder="Ingrese la fecha de vigencia del codigo" formControlName="vigencia" required>
+                <mat-error *ngIf="datosCodigo.get('vigencia').hasError('required')">La fecha de vigencia es <strong>requerida</strong></mat-error>
+              </mat-form-field>
+              <div class="button-row">
+                <button mat-raised-button type="submit" class="btn-info" style="color: white; margin-left: 2px; margin-right: 2px; width: 48%;" [disabled]="datosCodigo.invalid || loading">Generar codigo</button> 
+              </div>
+          </div>  
+          </form>
+            <div class="example-table-container" style="padding: 2rem; text-align: center; align-content: center;" id="customers" id="content" #customers>
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+               <!-- Number Column -->
+                <ng-container matColumnDef="number">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> No. </th>
+                    <td mat-cell *matCellDef="let ca; let i = index"> {{i+1}} </td>
+                  </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef style="text-align: center;"> id </th>
+                  <td mat-cell *matCellDef="let ca"> {{ca.id}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="codigo">
+                  <th mat-header-cell *matHeaderCellDef style="text-align: center;"> codigo </th>
+                  <td mat-cell *matCellDef="let ca"> {{ca.codigo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="vigencia">
+                  <th mat-header-cell *matHeaderCellDef style="text-align: center;"> vigencia </th>
+                  <td mat-cell *matCellDef="let ca"> {{ca.vigencia | date: 'dd/MM/yyyy'}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                    (click)="selection.toggle(row)">
+                </tr>
+              </table>
+            </div>
+        
+          <div class="example-container">
+          <div class="button-row">
+             <button mat-raised-button type="submit" class="btn-info" style="color: white; margin-left: 2px; margin-right: 2px; width: 48%;" (click)="downloadPDFTable()"> Imprimir codigo</button> 
+          </div>
+         </div>
+        
+</div>
